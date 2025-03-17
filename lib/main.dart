@@ -2,6 +2,7 @@ import 'package:connect_note/features/auth/cubit/auth_cubit.dart';
 import 'package:connect_note/features/auth/views/login.dart';
 import 'package:connect_note/firebase_options.dart';
 import 'package:connect_note/service/firebase/firebase_service.dart';
+import 'package:connect_note/shared/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -30,7 +31,8 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: LoginScreen(),
+        onGenerateRoute: AppRouter.generateRoute,
+        initialRoute: AppRouteString.home,
       ),
     );
   }

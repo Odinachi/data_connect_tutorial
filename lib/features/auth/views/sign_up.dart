@@ -1,5 +1,6 @@
 import 'package:connect_note/features/auth/cubit/auth_cubit.dart';
 import 'package:connect_note/features/home/views/home.dart';
+import 'package:connect_note/shared/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,11 +10,11 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
-  
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -25,9 +26,8 @@ class _SignupScreenState extends State<SignupScreen> {
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is AuthAuthenticated) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => HomeScreen()),
+            AppRouter.pushReplacement(
+              AppRouteString.home
             );
           } else if (state is AuthFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -121,23 +121,21 @@ class _SignupScreenState extends State<SignupScreen> {
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               context.read<AuthCubit>().signUp(
-                                   
-                                      name: _nameController.text.trim(),
-                                      email: _emailController.text.trim(),
-                                      password: _passwordController.text.trim(),
-                                    
+                                    name: _nameController.text.trim(),
+                                    email: _emailController.text.trim(),
+                                    password: _passwordController.text.trim(),
                                   );
                             }
                           },
-                          child: Text('Sign Up'),
                           style: ElevatedButton.styleFrom(
                             minimumSize: Size(double.infinity, 50),
                           ),
+                          child: Text('Sign Up'),
                         ),
                   SizedBox(height: 16),
                   TextButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      AppRouter.pop();
                     },
                     child: Text('Already have an account? Login'),
                   ),

@@ -2,6 +2,7 @@ import 'package:connect_note/features/auth/cubit/auth_cubit.dart';
 import 'package:connect_note/features/auth/views/login.dart';
 import 'package:connect_note/features/note/cubit/note_cubit.dart';
 import 'package:connect_note/features/note/view/note.dart';
+import 'package:connect_note/shared/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<NoteCubit>().fetchNotes();
+    // context.read<NoteCubit>().fetchNotes();
   }
 
   @override
@@ -28,9 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
           BlocConsumer<AuthCubit, AuthState>(
             listener: (context, state) {
               if (state is AuthUnauthenticated) {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
+               AppRouter.pushReplacement(
+                 AppRouteString.login
                 );
               }
             },
@@ -82,11 +82,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text('Are you sure you want to delete this note?'),
                           actions: [
                             TextButton(
-                              onPressed: () => Navigator.of(context).pop(false),
+                              onPressed: () => AppRouter.pop(),
                               child: Text('Cancel'),
                             ),
                             TextButton(
-                              onPressed: () => Navigator.of(context).pop(true),
+                              onPressed: () => AppRouter.pop(),
                               child: Text('Delete'),
                             ),
                           ],
@@ -113,11 +113,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         overflow: TextOverflow.ellipsis,
                       ),
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => NoteScreen(note: note),
-                          ),
+                      AppRouter.push(
+                         AppRouteString.noteScreen, arg: note
                         );
                       },
                     ),
@@ -131,9 +128,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => NoteScreen()),
+          AppRouter.push(
+            AppRouteString.noteScreen
           );
         },
         child: Icon(Icons.add),

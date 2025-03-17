@@ -1,5 +1,6 @@
 import 'package:connect_note/features/note/cubit/note_cubit.dart';
 import 'package:connect_note/features/note/model/note_model.dart';
+import 'package:connect_note/shared/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,8 +14,8 @@ class NoteScreen extends StatefulWidget {
 }
 
 class _NoteScreenState extends State<NoteScreen> {
-  final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _contentController = TextEditingController();
+  final  _titleController = TextEditingController();
+  final  _contentController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool _isEditing = false;
 
@@ -98,7 +99,7 @@ class _NoteScreenState extends State<NoteScreen> {
       } else {
         context.read<NoteCubit>().addNote();
       }
-      Navigator.pop(context);
+      AppRouter.pop();
     }
   }
 }

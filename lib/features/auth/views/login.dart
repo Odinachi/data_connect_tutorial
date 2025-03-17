@@ -1,6 +1,7 @@
 import 'package:connect_note/features/auth/cubit/auth_cubit.dart';
 import 'package:connect_note/features/auth/views/sign_up.dart';
 import 'package:connect_note/features/home/views/home.dart';
+import 'package:connect_note/shared/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,9 +24,8 @@ class _LoginScreenState extends State<LoginScreen> {
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is AuthAuthenticated) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => HomeScreen()),
+            AppRouter.pushReplacement(
+             AppRouteString.home
             );
           } else if (state is AuthFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -82,6 +82,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       ? CircularProgressIndicator()
                       : ElevatedButton(
                           onPressed: () {
+
+                            
                             if (_formKey.currentState!.validate()) {
                               context.read<AuthCubit>().signIn(
                                     email: _emailController.text.trim(),
@@ -97,11 +99,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: 16),
                   TextButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SignupScreen(),
-                        ),
+                     AppRouter.push(
+                      AppRouteString.signUp
                       );
                     },
                     child: Text('Don\'t have an account? Sign up'),
