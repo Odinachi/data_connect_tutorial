@@ -7,7 +7,7 @@ class FirebaseService {
   Future<UserCredential> signUp(
       String email, String password, String name) async {
     try {
-      UserCredential userCredential = await _firebaseAuth
+     final userCredential = await _firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
       
     
@@ -41,40 +41,4 @@ class FirebaseService {
     return _firebaseAuth.currentUser;
   }
 
-  Stream<User?> get user {
-    return _firebaseAuth.authStateChanges();
-  }
-
-
-   Future<List<Note>> getNotes() async {
-    try {
-      
-
-      return [];
-    } catch (e) {
-      throw Exception(e.toString());
-    }
-  }
-
-  Future<void> createNote(String title, String content) async {
-    try {
-      
-    } catch (e) {
-      throw Exception(e.toString());
-    }
-  }
-
-  Future<void> updateNote(Note note) async {
-    
-
-    
-  }
-
-  Future<void> deleteNote(String noteId) async {
-    try {
-     
-    } catch (e) {
-      throw Exception(e.toString());
-    }
-  }
 }
