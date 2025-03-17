@@ -13,13 +13,13 @@ class NoteCubit extends Cubit<NoteState> {
     // If failure, emit NoteFailure
   }
 
-  void addNote() {
+  void addNote( Note note)  {
     // Call the repository to add a note
     // If successful, fetch notes
     // If failure, emit NoteFailure
   }
 
-  void updateNote({String? noteId}) {
+  void updateNote( Note note) {
     // Call the repository to update a note
     // If successful, fetch notes
     // If failure, emit NoteFailure

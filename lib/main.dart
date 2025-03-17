@@ -1,5 +1,6 @@
 import 'package:connect_note/features/auth/cubit/auth_cubit.dart';
 import 'package:connect_note/features/auth/views/login.dart';
+import 'package:connect_note/features/note/cubit/note_cubit.dart';
 import 'package:connect_note/firebase_options.dart';
 import 'package:connect_note/service/firebase/firebase_service.dart';
 import 'package:connect_note/shared/app_router.dart';
@@ -22,10 +23,13 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<AuthCubit>(
           create: (context) => AuthCubit(firebaseService: firebaseService),
+        ),  BlocProvider<NoteCubit>(
+          create: (context) => NoteCubit(),
         ),
        
       ],
       child: MaterialApp(
+        navigatorKey: AppRouter.key,
         title: 'Note App',
         theme: ThemeData(
           primarySwatch: Colors.blue,

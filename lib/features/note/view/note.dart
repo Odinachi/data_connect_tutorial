@@ -14,8 +14,8 @@ class NoteScreen extends StatefulWidget {
 }
 
 class _NoteScreenState extends State<NoteScreen> {
-  final  _titleController = TextEditingController();
-  final  _contentController = TextEditingController();
+  final _titleController = TextEditingController();
+  final _contentController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool _isEditing = false;
 
@@ -61,16 +61,16 @@ class _NoteScreenState extends State<NoteScreen> {
                 },
               ),
               SizedBox(height: 16),
-              Expanded(
+              SizedBox(
+                height: 300,
                 child: TextFormField(
+                  maxLines: 20,
                   controller: _contentController,
                   decoration: InputDecoration(
                     labelText: 'Content',
                     border: OutlineInputBorder(),
                     alignLabelWithHint: true,
                   ),
-                  maxLines: null,
-                  expands: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter content';
@@ -86,18 +86,18 @@ class _NoteScreenState extends State<NoteScreen> {
     );
   }
 
-   void _saveNote() {
+  void _saveNote() {
     if (_formKey.currentState!.validate()) {
+      final note = Note(
+        id: _isEditing ? widget.note!.id : null,
+        title: _titleController.text.trim(),
+        content: _contentController.text.trim(),
+        createdAt: widget.note!.createdAt,
+      );
       if (_isEditing) {
-        final updatedNote = Note(
-          id: widget.note!.id,
-          title: _titleController.text.trim(),
-          content: _contentController.text.trim(),
-          createdAt: widget.note!.createdAt,
-        );
-        context.read<NoteCubit>().updateNote(noteId: updatedNote.id);
+        context.read<NoteCubit>().updateNote(note);
       } else {
-        context.read<NoteCubit>().addNote();
+        context.read<NoteCubit>().addNote(note);
       }
       AppRouter.pop();
     }

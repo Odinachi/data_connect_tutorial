@@ -128,6 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+
           AppRouter.push(
             AppRouteString.noteScreen
           );
