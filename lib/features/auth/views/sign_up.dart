@@ -1,5 +1,4 @@
 import 'package:connect_note/features/auth/cubit/auth_cubit.dart';
-import 'package:connect_note/features/home/views/home.dart';
 import 'package:connect_note/shared/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
