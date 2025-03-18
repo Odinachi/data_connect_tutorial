@@ -1,0 +1,16 @@
+type Users @table(name: "users", singular: "user", key: "id") {
+  id: UUID! @col(name: "id") @default(expr: "uuidV4()")
+  name: String! @col(name: "name")
+  uid: String! @unique @col(name: "uid")
+  email: String! @col(name: "email")
+  createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+}
+
+type Notes @table(name: "notes", singular: "note", key: "id") {
+  id: UUID! @col(name: "id") @default(expr: "uuidV4()")
+  title: String! @col(name: "title")
+  content: String! @col(name: "content")
+  user: Users! @ref 
+  createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
+}

@@ -1,0 +1,6 @@
+extend type Notes {
+  """
+  ✨ Implicit foreign key field based on `Notes`.`user`. It must match the value of `Users`.`id`. See `@ref` for how to customize it.
+  """
+  userId: UUID! @fdc_generated(from: "Notes.user", purpose: IMPLICIT_REF_FIELD)
+}

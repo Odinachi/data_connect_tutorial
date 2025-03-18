@@ -1,0 +1,5 @@
+connectorId: note
+generate:
+  dartSdk:
+    outputDir: ../../lib/dataconnect-generated/dart/note_connector
+    package: note_connector

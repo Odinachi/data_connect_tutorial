@@ -1,0 +1,88 @@
+extend type Query {
+  """
+  ✨ Look up a single `Notes` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  note(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Notes_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Notes_FirstRow
+  ): Notes @fdc_generated(from: "Notes", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `Users` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  user(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Users_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Users_FirstRow
+  ): Users @fdc_generated(from: "Users", purpose: QUERY_SINGLE)
+  """
+  ✨ List `Notes` objects in the table, optionally filtered by `where` conditions.
+  """
+  notes(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Notes_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Notes_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+  ): [Notes!]! @fdc_generated(from: "Notes", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `Users` objects in the table, optionally filtered by `where` conditions.
+  """
+  users(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Users_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Users_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+  ): [Users!]! @fdc_generated(from: "Users", purpose: QUERY_MULTIPLE)
+}

@@ -1,0 +1,7 @@
+mutation CreateUser($uid: String!, $email:String!, $name: String! ){
+    user_insert(data: {uid: $uid, email: $email, name: $name})
+}
+
+mutation CreateNote($title: String!, $content: String!, $userId:String!){
+    note_insert(data: {title: $title, content: $content, user: {id: {id: $userId}} })
+}

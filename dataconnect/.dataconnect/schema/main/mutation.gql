@@ -1,0 +1,226 @@
+extend type Mutation {
+  """
+  ✨ Insert a single `Notes` into the table. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  note_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Notes_Data!
+  ): Notes_KeyOutput! @fdc_generated(from: "Notes", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Users` into the table. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  user_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Users_Data!
+  ): Users_KeyOutput! @fdc_generated(from: "Users", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert `Notes` objects into the table. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  note_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Notes_Data!]!
+  ): [Notes_KeyOutput!]! @fdc_generated(from: "Notes", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Users` objects into the table. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  user_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Users_Data!]!
+  ): [Users_KeyOutput!]! @fdc_generated(from: "Users", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert or update a single `Notes` into the table, based on the primary key. Returns the key of the newly inserted `Notes`.
+  """
+  note_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Notes_Data!
+  ): Notes_KeyOutput! @fdc_generated(from: "Notes", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Users` into the table, based on the primary key. Returns the key of the newly inserted `Users`.
+  """
+  user_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Users_Data!
+  ): Users_KeyOutput! @fdc_generated(from: "Users", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update `Notes` objects into the table, based on the primary key. Returns the key of the newly inserted `Notes`.
+  """
+  note_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Notes_Data!]!
+  ): [Notes_KeyOutput!]! @fdc_generated(from: "Notes", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Users` objects into the table, based on the primary key. Returns the key of the newly inserted `Users`.
+  """
+  user_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Users_Data!]!
+  ): [Users_KeyOutput!]! @fdc_generated(from: "Users", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Update a single `Notes` based on `id`, `key` or `first`, setting columns specified in `data`. Returns `null` if not found.
+  """
+  note_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Notes_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Notes_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Notes_Data!
+  ): Notes_KeyOutput @fdc_generated(from: "Notes", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Users` based on `id`, `key` or `first`, setting columns specified in `data`. Returns `null` if not found.
+  """
+  user_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Users_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Users_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Users_Data!
+  ): Users_KeyOutput @fdc_generated(from: "Users", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update `Notes` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  note_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Notes_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Notes_Data!
+  ): Int! @fdc_generated(from: "Notes", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Users` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  user_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Users_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Users_Data!
+  ): Int! @fdc_generated(from: "Users", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Delete a single `Notes` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  note_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Notes_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Notes_FirstRow
+  ): Notes_KeyOutput @fdc_generated(from: "Notes", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Users` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  user_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Users_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Users_FirstRow
+  ): Users_KeyOutput @fdc_generated(from: "Users", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete `Notes` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  note_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Notes_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Notes", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Users` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  user_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Users_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Users", purpose: DELETE_MULTIPLE)
+}

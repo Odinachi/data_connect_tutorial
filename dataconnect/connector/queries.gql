@@ -1,0 +1,66 @@
+query GetUsers {
+  users {
+    id
+    name
+    email
+    uid
+  }
+}
+
+query GetUser($id: UUID!) {
+  user(id: $id) {
+    id
+    name
+    email
+    uid
+  }
+}
+
+query GetNotes {
+  notes {
+    id
+    title
+    content
+    createdAt
+    updatedAt
+    user {
+      id
+      name
+      email
+      uid
+    }
+  }
+}
+
+query GeUserNotes($id: UUID!) {
+  notes(where: { user: { id: { eq: $id } } }) {
+    id
+    title
+    content
+    createdAt
+    updatedAt
+    user {
+      id
+      name
+      email
+      uid
+    }
+  }
+}
+
+
+query GetNote ($id: UUID!) {
+  note (id: $id) {
+    id
+    title
+    content
+    createdAt
+    updatedAt
+    user {
+      id
+      name
+      email
+      uid
+    }
+  }
+}
