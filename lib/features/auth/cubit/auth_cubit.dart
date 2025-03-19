@@ -20,16 +20,18 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  void signIn({required String email, required String password}) {
+  void signIn({required String email, required String password}) async {
     emit(AuthLoading());
-    // Call the repository to sign in
-    // If successful, emit AuthAuthenticated
-    // If failure, emit AuthFailure
+    final call = await firebaseService.signIn(email, password);
+    if (call.signedIn ?? false) {
+      emit(AuthAuthenticated());
+    } else {
+      emit(AuthFailure(call.error ?? 'An error occurred'));
+    }
   }
 
-  void signOut() {
-    // Call the repository to sign out
-    // If successful, emit AuthUnauthenticated
-    // If failure, emit AuthFailure
+  void signOut() async {
+    await firebaseService.signOut();
+    emit(AuthUnauthenticated());
   }
 }
