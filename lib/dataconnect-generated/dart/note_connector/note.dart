@@ -10,6 +10,8 @@ part 'get_notes.dart';
 
 part 'ge_user_notes.dart';
 
+part 'get_note.dart';
+
 part 'create_user.dart';
 
 part 'create_note.dart';
@@ -40,6 +42,11 @@ class NoteConnector {
   
   GeUserNotesVariablesBuilder geUserNotes ({required String id, }) {
     return GeUserNotesVariablesBuilder(dataConnect, id: id,);
+  }
+  
+  
+  GetNoteVariablesBuilder getNote ({required String id, }) {
+    return GetNoteVariablesBuilder(dataConnect, id: id,);
   }
   
   

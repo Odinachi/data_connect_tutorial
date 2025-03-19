@@ -1,7 +1,7 @@
-mutation CreateUser($uid: String!, $email:String!, $name: String! ){
+mutation CreateUser($uid: String!, $email:String!, $name: String! )@auth(level: PUBLIC){
     user_insert(data: {uid: $uid, email: $email, name: $name})
 }
 
-mutation CreateNote($title: String!, $content: String!, $userId:String!){
+mutation CreateNote($title: String!, $content: String!, $userId:String!)@auth(level: PUBLIC){
     note_insert(data: {title: $title, content: $content, user: {id: {id: $userId}} })
 }

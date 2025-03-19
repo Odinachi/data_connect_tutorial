@@ -1,4 +1,4 @@
-query GetUsers {
+query GetUsers @auth(level: PUBLIC){
   users {
     id
     name
@@ -7,7 +7,7 @@ query GetUsers {
   }
 }
 
-query GetUser($id: UUID!) {
+query GetUser($id: UUID!)@auth(level: PUBLIC) {
   user(id: $id) {
     id
     name
@@ -16,7 +16,7 @@ query GetUser($id: UUID!) {
   }
 }
 
-query GetNotes {
+query GetNotes @auth(level: PUBLIC){
   notes {
     id
     title
@@ -32,7 +32,7 @@ query GetNotes {
   }
 }
 
-query GeUserNotes($id: UUID!) {
+query GeUserNotes($id: UUID!)@auth(level: PUBLIC) {
   notes(where: { user: { id: { eq: $id } } }) {
     id
     title
@@ -49,7 +49,7 @@ query GeUserNotes($id: UUID!) {
 }
 
 
-query GetNote ($id: UUID!) {
+query GetNote ($id: UUID!)@auth(level: PUBLIC) {
   note (id: $id) {
     id
     title

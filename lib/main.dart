@@ -1,3 +1,4 @@
+import 'package:connect_note/dataconnect-generated/dart/note_connector/note.dart';
 import 'package:connect_note/features/auth/cubit/auth_cubit.dart';
 import 'package:connect_note/features/auth/views/login.dart';
 import 'package:connect_note/features/note/cubit/note_cubit.dart';
@@ -11,6 +12,9 @@ import 'package:firebase_core/firebase_core.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  String host = 'localhost'; 
+  int port = 9399;
+  NoteConnector.instance.dataConnect.useDataConnectEmulator(host, port);
   runApp(MyApp());
 }
 
@@ -36,7 +40,7 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         onGenerateRoute: AppRouter.generateRoute,
-        initialRoute: AppRouteString.home,
+        initialRoute: AppRouteString.login,
       ),
     );
   }

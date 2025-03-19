@@ -152,7 +152,7 @@ ref.subscribe(...);
 ```
 
 
-### geUserNotes
+### GeUserNotes
 #### Required Arguments
 ```dart
 String id = ...;
@@ -164,7 +164,7 @@ NoteConnector.instance.geUserNotes(
 
 
 #### Return Type
-`execute()` returns a `QueryResult<geUserNotesData, geUserNotesVariables>`
+`execute()` returns a `QueryResult<GeUserNotesData, GeUserNotesVariables>`
 ```dart
 /// Result of an Operation Request (query/mutation).
 class OperationResult<Data, Variables> {
@@ -182,7 +182,7 @@ class QueryResult<Data, Variables> extends OperationResult<Data, Variables> {
 final result = await NoteConnector.instance.geUserNotes(
   id: id,
 );
-geUserNotesData data = result.data;
+GeUserNotesData data = result.data;
 final ref = result.ref;
 ```
 
@@ -193,6 +193,55 @@ An example of how to use the `Ref` object is shown below:
 String id = ...;
 
 final ref = NoteConnector.instance.geUserNotes(
+  id: id,
+).ref();
+ref.execute();
+
+ref.subscribe(...);
+```
+
+
+### GetNote
+#### Required Arguments
+```dart
+String id = ...;
+NoteConnector.instance.getNote(
+  id: id,
+).execute();
+```
+
+
+
+#### Return Type
+`execute()` returns a `QueryResult<GetNoteData, GetNoteVariables>`
+```dart
+/// Result of an Operation Request (query/mutation).
+class OperationResult<Data, Variables> {
+  OperationResult(this.dataConnect, this.data, this.ref);
+  Data data;
+  OperationRef<Data, Variables> ref;
+  FirebaseDataConnect dataConnect;
+}
+
+/// Result of a query request. Created to hold extra variables in the future.
+class QueryResult<Data, Variables> extends OperationResult<Data, Variables> {
+  QueryResult(super.dataConnect, super.data, super.ref);
+}
+
+final result = await NoteConnector.instance.getNote(
+  id: id,
+);
+GetNoteData data = result.data;
+final ref = result.ref;
+```
+
+#### Getting the Ref
+Each builder returns an `execute` function, which is a helper function that creates a `Ref` object, and executes the underlying operation.
+An example of how to use the `Ref` object is shown below:
+```dart
+String id = ...;
+
+final ref = NoteConnector.instance.getNote(
   id: id,
 ).ref();
 ref.execute();

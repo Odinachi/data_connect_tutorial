@@ -13,7 +13,7 @@ class GeUserNotesVariablesBuilder {
 
   QueryRef<GeUserNotesData, GeUserNotesVariables> ref() {
     GeUserNotesVariables vars= GeUserNotesVariables(id: id,);
-    return _dataConnect.query("geUserNotes", dataDeserializer, varsSerializer, vars);
+    return _dataConnect.query("GeUserNotes", dataDeserializer, varsSerializer, vars);
   }
 }
 

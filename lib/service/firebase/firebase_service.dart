@@ -1,20 +1,29 @@
+import 'package:connect_note/dataconnect-generated/dart/note_connector/note.dart';
+
 import '../../features/note/model/note_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseService {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final _firebaseAuth = FirebaseAuth.instance;
+  final _noteConnector = NoteConnector.instance;
 
-  Future<UserCredential> signUp(
+  Future<({bool? successful, String? error})> signUp(
       String email, String password, String name) async {
     try {
-     final userCredential = await _firebaseAuth
-          .createUserWithEmailAndPassword(email: email, password: password);
-      
-    
-      
-      return userCredential;
+      final call = await _firebaseAuth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      if (call.user != null) {
+        final uid = call.user!.uid;
+        await _noteConnector.createUser(uid: uid, email: email, name: name).execute();
+        return (successful: true, error: null);
+      }
+     await _firebaseAuth.currentUser?.delete();
+      return (successful: false, error: 'An error occurred');
     } catch (e) {
-      throw Exception(e.toString());
+      if (e is FirebaseAuthException) {
+        return (successful: null, error: e.message);
+      }
+      return (successful: null, error: e.toString());
     }
   }
 
@@ -40,5 +49,4 @@ class FirebaseService {
   User? getCurrentUser() {
     return _firebaseAuth.currentUser;
   }
-
 }
