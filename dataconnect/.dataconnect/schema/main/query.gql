@@ -23,11 +23,6 @@ extend type Query {
   """
   user(
     """
-    The unique ID of the object.
-    """
-    id: UUID
-
-    """
     The key used to identify the object.
     """
     key: Users_Key

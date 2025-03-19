@@ -7,8 +7,8 @@ query GetUsers @auth(level: PUBLIC){
   }
 }
 
-query GetUser($id: UUID!)@auth(level: PUBLIC) {
-  user(id: $id) {
+query GetUser($uid: String!) @auth(level: PUBLIC) {
+  user(key: {uid: $uid}) {
     id
     name
     email

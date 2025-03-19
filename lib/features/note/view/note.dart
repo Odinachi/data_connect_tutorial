@@ -1,3 +1,4 @@
+import 'package:connect_note/features/auth/cubit/auth_cubit.dart';
 import 'package:connect_note/features/note/cubit/note_cubit.dart';
 import 'package:connect_note/features/note/model/note_model.dart';
 import 'package:connect_note/shared/app_router.dart';
@@ -88,16 +89,17 @@ class _NoteScreenState extends State<NoteScreen> {
 
   void _saveNote() {
     if (_formKey.currentState!.validate()) {
-      final note = Note(
+      
+      if (_isEditing) {
+        final note = Note(
         id: _isEditing ? widget.note!.id : null,
         title: _titleController.text.trim(),
         content: _contentController.text.trim(),
         createdAt: widget.note!.createdAt,
       );
-      if (_isEditing) {
         context.read<NoteCubit>().updateNote(note);
       } else {
-        context.read<NoteCubit>().addNote(note);
+        context.read<NoteCubit>().addNote(title: _titleController.text.trim(), content: _contentController.text.trim(), userId:context.read<AuthCubit>().user?.id??"" );
       }
       AppRouter.pop();
     }

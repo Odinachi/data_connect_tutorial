@@ -2,6 +2,10 @@ library note_connector;
 import 'package:firebase_data_connect/firebase_data_connect.dart';
 import 'dart:convert';
 
+part 'create_user.dart';
+
+part 'create_note.dart';
+
 part 'get_users.dart';
 
 part 'get_user.dart';
@@ -12,10 +16,6 @@ part 'ge_user_notes.dart';
 
 part 'get_note.dart';
 
-part 'create_user.dart';
-
-part 'create_note.dart';
-
 
 
 
@@ -25,13 +25,23 @@ part 'create_note.dart';
 class NoteConnector {
   
   
+  CreateUserVariablesBuilder createUser ({required String uid, required String email, required String name, }) {
+    return CreateUserVariablesBuilder(dataConnect, uid: uid,email: email,name: name,);
+  }
+  
+  
+  CreateNoteVariablesBuilder createNote ({required String title, required String content, required String userId, }) {
+    return CreateNoteVariablesBuilder(dataConnect, title: title,content: content,userId: userId,);
+  }
+  
+  
   GetUsersVariablesBuilder getUsers () {
     return GetUsersVariablesBuilder(dataConnect, );
   }
   
   
-  GetUserVariablesBuilder getUser ({required String id, }) {
-    return GetUserVariablesBuilder(dataConnect, id: id,);
+  GetUserVariablesBuilder getUser ({required String uid, }) {
+    return GetUserVariablesBuilder(dataConnect, uid: uid,);
   }
   
   
@@ -47,16 +57,6 @@ class NoteConnector {
   
   GetNoteVariablesBuilder getNote ({required String id, }) {
     return GetNoteVariablesBuilder(dataConnect, id: id,);
-  }
-  
-  
-  CreateUserVariablesBuilder createUser ({required String uid, required String email, required String name, }) {
-    return CreateUserVariablesBuilder(dataConnect, uid: uid,email: email,name: name,);
-  }
-  
-  
-  CreateNoteVariablesBuilder createNote ({required String title, required String content, required String userId, }) {
-    return CreateNoteVariablesBuilder(dataConnect, title: title,content: content,userId: userId,);
   }
   
 

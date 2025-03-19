@@ -100,11 +100,6 @@ extend type Mutation {
   """
   user_update(
     """
-    The unique ID of the object.
-    """
-    id: UUID
-
-    """
     The key used to identify the object.
     """
     key: Users_Key
@@ -180,11 +175,6 @@ extend type Mutation {
   ✨ Delete a single `Users` based on `id`, `key` or `first` and return its key (or `null` if not found).
   """
   user_delete(
-    """
-    The unique ID of the object.
-    """
-    id: UUID
-
     """
     The key used to identify the object.
     """

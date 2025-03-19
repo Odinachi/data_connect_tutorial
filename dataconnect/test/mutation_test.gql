@@ -3,5 +3,5 @@ mutation CreateUser {
 }
 
 mutation CreateNote{
-    note_insert(data: {title: "second title", content: "second content", user: {id:  "6f30b8354dd54e73a0d67cf7d369c9bb"} })
+    note_insert(data: {title: "second title", content: "second content", user: {uid:  "6f30b8354dd54e73a0d67cf7d369c9bb"} })
 }

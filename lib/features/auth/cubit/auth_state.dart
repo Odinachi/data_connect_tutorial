@@ -7,6 +7,7 @@ class AuthStateInitial extends AuthState {}
 
 class AuthLoading extends AuthState {}
 class AuthAuthenticated extends AuthState {}
+class AuthUser extends AuthState {}
 
 class AuthFailure extends AuthState {
   final String message;

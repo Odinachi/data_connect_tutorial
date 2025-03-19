@@ -20,18 +20,18 @@ class CreateUserVariablesBuilder {
 }
 
 class CreateUserUserInsert {
-  String id;
+  String uid;
   CreateUserUserInsert.fromJson(dynamic json):
-  id = nativeFromJson<String>(json['id']);
+  uid = nativeFromJson<String>(json['uid']);
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {};
-    json['id'] = nativeToJson<String>(id);
+    json['uid'] = nativeToJson<String>(uid);
     return json;
   }
 
   CreateUserUserInsert({
-    required this.id,
+    required this.uid,
   });
 }
 

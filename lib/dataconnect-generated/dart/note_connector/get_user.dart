@@ -1,10 +1,10 @@
 part of 'note.dart';
 
 class GetUserVariablesBuilder {
-  String id;
+  String uid;
 
   final FirebaseDataConnect _dataConnect;
-  GetUserVariablesBuilder(this._dataConnect, {required  this.id,});
+  GetUserVariablesBuilder(this._dataConnect, {required  this.uid,});
   Deserializer<GetUserData> dataDeserializer = (dynamic json)  => GetUserData.fromJson(jsonDecode(json));
   Serializer<GetUserVariables> varsSerializer = (GetUserVariables vars) => jsonEncode(vars.toJson());
   Future<QueryResult<GetUserData, GetUserVariables>> execute() {
@@ -12,7 +12,7 @@ class GetUserVariablesBuilder {
   }
 
   QueryRef<GetUserData, GetUserVariables> ref() {
-    GetUserVariables vars= GetUserVariables(id: id,);
+    GetUserVariables vars= GetUserVariables(uid: uid,);
     return _dataConnect.query("GetUser", dataDeserializer, varsSerializer, vars);
   }
 }
@@ -61,19 +61,19 @@ class GetUserData {
 }
 
 class GetUserVariables {
-  String id;
+  String uid;
   @Deprecated('fromJson is deprecated for Variable classes as they are no longer required for deserialization.')
   GetUserVariables.fromJson(Map<String, dynamic> json):
-  id = nativeFromJson<String>(json['id']);
+  uid = nativeFromJson<String>(json['uid']);
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {};
-    json['id'] = nativeToJson<String>(id);
+    json['uid'] = nativeToJson<String>(uid);
     return json;
   }
 
   GetUserVariables({
-    required this.id,
+    required this.uid,
   });
 }
 

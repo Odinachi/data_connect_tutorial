@@ -65,9 +65,9 @@ ref.subscribe(...);
 ### GetUser
 #### Required Arguments
 ```dart
-String id = ...;
+String uid = ...;
 NoteConnector.instance.getUser(
-  id: id,
+  uid: uid,
 ).execute();
 ```
 
@@ -90,7 +90,7 @@ class QueryResult<Data, Variables> extends OperationResult<Data, Variables> {
 }
 
 final result = await NoteConnector.instance.getUser(
-  id: id,
+  uid: uid,
 );
 GetUserData data = result.data;
 final ref = result.ref;
@@ -100,10 +100,10 @@ final ref = result.ref;
 Each builder returns an `execute` function, which is a helper function that creates a `Ref` object, and executes the underlying operation.
 An example of how to use the `Ref` object is shown below:
 ```dart
-String id = ...;
+String uid = ...;
 
 final ref = NoteConnector.instance.getUser(
-  id: id,
+  uid: uid,
 ).ref();
 ref.execute();
 

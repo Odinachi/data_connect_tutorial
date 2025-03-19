@@ -17,7 +17,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // context.read<NoteCubit>().fetchNotes();
+
+    context.read<AuthCubit>().fetchUser().then((user) {
+      if (user != null) context.read<NoteCubit>().fetchNotes(user.id);
+    });
   }
 
   @override
@@ -29,9 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
           BlocConsumer<AuthCubit, AuthState>(
             listener: (context, state) {
               if (state is AuthUnauthenticated) {
-               AppRouter.pushReplacement(
-                 AppRouteString.login
-                );
+                AppRouter.pushReplacement(AppRouteString.login);
               }
             },
             builder: (context, state) {
@@ -47,6 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: BlocBuilder<NoteCubit, NoteState>(
         builder: (context, state) {
+
+         
           if (state is NoteLoading) {
             return Center(child: CircularProgressIndicator());
           } else if (state is NoteFailure) {
@@ -61,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
               itemBuilder: (context, index) {
                 final note = state.notes[index];
                 return Dismissible(
-                  key: Key(note.id??""),
+                  key: Key(note.id ?? ""),
                   background: Container(
                     color: Colors.red,
                     alignment: Alignment.centerRight,
@@ -78,8 +81,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       builder: (BuildContext context) {
                         return AlertDialog(
                           title: Text('Delete Note'),
-                          content:
-                              Text('Are you sure you want to delete this note?'),
+                          content: Text(
+                              'Are you sure you want to delete this note?'),
                           actions: [
                             TextButton(
                               onPressed: () => AppRouter.pop(),
@@ -104,18 +107,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     child: ListTile(
                       title: Text(
-                        note.title??"",
+                        note.title ?? "",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       subtitle: Text(
-                        note.content??"",
+                        note.content ?? "",
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
                       onTap: () {
-                      AppRouter.push(
-                         AppRouteString.noteScreen, arg: note
-                        );
+                        AppRouter.push(AppRouteString.noteScreen, arg: note);
                       },
                     ),
                   ),
@@ -128,10 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-
-          AppRouter.push(
-            AppRouteString.noteScreen
-          );
+          AppRouter.push(AppRouteString.noteScreen);
         },
         child: Icon(Icons.add),
       ),

@@ -1,4 +1,4 @@
-type Users @table(name: "users", singular: "user", key: "id") {
+type Users @table(name: "users", singular: "user", key: "uid") {
   id: UUID! @col(name: "id") @default(expr: "uuidV4()")
   name: String! @col(name: "name")
   uid: String! @unique @col(name: "uid")
