@@ -3,5 +3,13 @@ mutation CreateUser {
 }
 
 mutation CreateNote{
-    note_insert(data: {title: "second title", content: "second content", user: {uid:  "6f30b8354dd54e73a0d67cf7d369c9bb"} })
+    note_insert(data: {title: "second title", content: "second content", user: {uid:  "1F6ot3W3QAaeIrOmB564piyUJfQ2"} })
+}
+
+mutation DeleteNote {
+    note_delete(id: "e94f39561d2d42bf957a9212686a80d6")
+}
+
+mutation UpdateNote{
+    note_update(id:  "5980bd5d33c54792844d0ee365f6e06c", data: {title: "New title", content: "New content"})
 }

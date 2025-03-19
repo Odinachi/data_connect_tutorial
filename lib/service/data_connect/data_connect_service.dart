@@ -31,21 +31,18 @@ class DataConnectService {
     }
   }
 
-  void deleleteNote(String noteId) async {
-    // Call the repository to delete a note
-    // If successful, fetch notes
-    // If failure, emit NoteFailure
+  Future<void> deleleteNote(String noteId) async {
+   await _noteConnector.deleteNote(
+      id: noteId
+    ).execute();
   }
-  void updateNote(Note note) {
-    // Call the repository to update a note
-    // If successful, fetch notes
-    // If failure, emit NoteFailure
+ Future< void> updateNote(Note note) async{
+    await _noteConnector.updateNote(id: note.id??"", title: note.title??"", content: note.content??"").execute();
   }
   Future<({List<Note>? notes, String? error})> fetchNotes(String id) async {
     try {
       final call = await _noteConnector.geUserNotes(id: id).execute();
       final notes = call.data.notes;
-
       return (
         notes: List<Note>.from(notes.map((e) => Note.fromMap(e.toJson()))),
         error: null

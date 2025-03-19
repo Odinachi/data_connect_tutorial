@@ -11,7 +11,7 @@ part 'app_route_string.dart';
 class AppRouter {
   static final key = GlobalKey<NavigatorState>();
 
-  static void push(String route, {Object? arg}) =>
+  static Future<void> push(String route, {Object? arg}) async=>
       key.currentState?.pushNamed(route, arguments: arg);
 
   static void pop() => key.currentState?.pop();

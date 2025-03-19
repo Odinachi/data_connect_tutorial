@@ -10,8 +10,6 @@ class NoteCubit extends Cubit<NoteState> {
 
   final dataConnectService = DataConnectService();
 
- 
-
   void fetchNotes(String id) async {
     emit(NoteLoading());
     final call = await dataConnectService.fetchNotes(id);
@@ -22,9 +20,13 @@ class NoteCubit extends Cubit<NoteState> {
     }
   }
 
-  void addNote({required String title, required String content, required String userId}) async{
-     emit(NoteLoading());
-    final call = await dataConnectService.createNote(title: title, content: content, userId: userId);
+  void addNote(
+      {required String title,
+      required String content,
+      required String userId}) async {
+    emit(NoteLoading());
+    final call = await dataConnectService.createNote(
+        title: title, content: content, userId: userId);
     if (call.note != null) {
       emit(NoteCreated());
     } else {
@@ -32,15 +34,17 @@ class NoteCubit extends Cubit<NoteState> {
     }
   }
 
-  void updateNote(Note note) {
-    // Call the repository to update a note
-    // If successful, fetch notes
-    // If failure, emit NoteFailure
+  void updateNote({required Note note, required String id}) async {
+    emit(NoteLoading());
+    await dataConnectService.updateNote(note).then((e) {
+       emit(NoteUpdated());
+    });
+    fetchNotes(id);
+  
   }
 
-  void deleteNote({String? noteId}) {
-    // Call the repository to delete a note
-    // If successful, fetch notes
-    // If failure, emit NoteFailure
+  void deleteNote({required String noteId, required String id}) async {
+    await dataConnectService.deleleteNote(noteId);
+    fetchNotes(id);
   }
 }

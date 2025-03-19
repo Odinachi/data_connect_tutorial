@@ -48,8 +48,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: BlocBuilder<NoteCubit, NoteState>(
         builder: (context, state) {
-
-         
           if (state is NoteLoading) {
             return Center(child: CircularProgressIndicator());
           } else if (state is NoteFailure) {
@@ -59,10 +57,14 @@ class _HomeScreenState extends State<HomeScreen> {
               return Center(
                   child: Text('No notes yet. Create your first note!'));
             }
+            
+            final notes = state.notes;
+            notes.sort((a, b) => (b.updatedAt ?? DateTime.now())
+                .compareTo(a.updatedAt ?? DateTime.now()));
             return ListView.builder(
-              itemCount: state.notes.length,
+              itemCount: notes.length,
               itemBuilder: (context, index) {
-                final note = state.notes[index];
+                final note = notes[index];
                 return Dismissible(
                   key: Key(note.id ?? ""),
                   background: Container(
@@ -85,11 +87,19 @@ class _HomeScreenState extends State<HomeScreen> {
                               'Are you sure you want to delete this note?'),
                           actions: [
                             TextButton(
-                              onPressed: () => AppRouter.pop(),
+                              onPressed: () {
+                                AppRouter.pop();
+                              },
                               child: Text('Cancel'),
                             ),
                             TextButton(
-                              onPressed: () => AppRouter.pop(),
+                              onPressed: () {
+                                AppRouter.pop();
+                                context.read<NoteCubit>().deleteNote(
+                                    noteId: note.id ?? "",
+                                    id: context.read<AuthCubit>().user?.id ??
+                                        "");
+                              },
                               child: Text('Delete'),
                             ),
                           ],
@@ -98,7 +108,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     );
                   },
                   onDismissed: (direction) {
-                    context.read<NoteCubit>().deleteNote(noteId: note.id);
+                    context.read<NoteCubit>().deleteNote(
+                        noteId: note.id ?? "",
+                        id: context.read<AuthCubit>().user?.id ?? "");
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('Note deleted')),
                     );
@@ -115,8 +127,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      onTap: () {
-                        AppRouter.push(AppRouteString.noteScreen, arg: note);
+                      onTap: () async {
+                        await AppRouter.push(AppRouteString.noteScreen,
+                            arg: note);
                       },
                     ),
                   ),
@@ -128,8 +141,12 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          AppRouter.push(AppRouteString.noteScreen);
+        onPressed: () async {
+          await AppRouter.push(AppRouteString.noteScreen).then((a) {
+            context
+                .read<NoteCubit>()
+                .fetchNotes(context.read<AuthCubit>().user?.id ?? "");
+          });
         },
         child: Icon(Icons.add),
       ),

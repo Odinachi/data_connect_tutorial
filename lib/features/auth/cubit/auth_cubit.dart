@@ -44,7 +44,6 @@ class AuthCubit extends Cubit<AuthState> {
   Future<GetUserUser?> fetchUser() async {
     final currentUser = (await dataConnectService.fetchUser()).user;
 
-     print("state: $currentUser");
     if (currentUser != null) {
       user = currentUser;
       return currentUser;

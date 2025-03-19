@@ -49,3 +49,22 @@ query GetNotes {
     }
   }
 }
+
+
+ 
+
+ query GeUserNotes{
+  notes(where: { user: { id: { eq: "cbe1b7a742584a3892e9519f9a238ff7" } } }) {
+    id
+    title
+    content
+    createdAt
+    updatedAt
+    user {
+      id
+      name
+      email
+      uid
+    }
+  }
+}

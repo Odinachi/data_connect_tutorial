@@ -5,3 +5,11 @@ mutation CreateUser($uid: String!, $email:String!, $name: String! )@auth(level: 
 mutation CreateNote($title: String!, $content: String!, $userId:String!)@auth(level: PUBLIC){
     note_insert(data: {title: $title, content: $content, user: {uid:  $userId}})
 }
+
+mutation DeleteNote($id: UUID!)@auth(level: PUBLIC){
+    note_delete(id: $id)
+}
+
+mutation UpdateNote($id: UUID!, $title: String!, $content: String!)@auth(level: PUBLIC){
+    note_update(id: $id,  data: {title: $title, content: $content})
+}
